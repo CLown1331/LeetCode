@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxDistToClosest(vector<int>& seats) {
+        set < int > pos_l, pos_r;
+        vector < int > ans;
+        for (int i = 0; i < seats.size(); i++) {
+            if (seats[i]) {
+                pos_l.insert(-i);
+                pos_r.insert(i);
+            }
+        }
+        for (int i = 0; i < seats.size(); i++) {
+            if (seats[i]) continue;
+            auto l =  pos_l.lower_bound(-i);
+            auto r =  pos_r.lower_bound(i);
+            int h = INT_MAX;
+            if (l != pos_l.end()) {
+                h = min(h, abs((*l) - (-i)));
+            }
+            if (r != pos_r.end()) {
+                h = min(h, abs((*r) - i));
+            }
+            ans.push_back(h);
+        }
+        return *max_element(ans.begin(), ans.end());
+    }
+};
