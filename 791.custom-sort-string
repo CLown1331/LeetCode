@@ -1,0 +1,13 @@
+class Solution {
+public:
+    char lookup[257];
+    string customSortString(string S, string T) {
+        for (char c = 'a'; c <= 'z'; c++) 
+            lookup[c] = 100;
+        for (int i = 0; i < S.length(); i++) {
+            lookup[S[i]] = i;
+        }
+        sort(T.begin(), T.end(), [this](const char& a, const char &b) -> bool {return lookup[a] < lookup[b];});
+        return T;
+    }
+};
