@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool check(const string& s, const string& t) {
+        if (s.size() % t.size() != 0) return false;
+        int i = 0;
+        while (i < (int)s.size()) {
+            // cout << s << " " << t << " " << s.find(t, i + 1) << "\n";
+            auto ind = s.find(t, i);
+            // cerr << i << " " << ind << "\n";
+            if (ind != string::npos && ind == i)
+                i += t.size();
+            else 
+                return false;
+        }
+        return true;
+    }
+    string gcdOfStrings(string str1, string str2) {
+        string s, a;
+        if (str1.size() > str2.size()) swap(str1, str2);
+        for (int i = 0; i < str1.size(); i++) {
+            s.push_back(str1[i]);
+            if (check(str1, s) && check(str2, s)) {
+                a = s;
+            }
+        }
+        return a;
+    }
+};
